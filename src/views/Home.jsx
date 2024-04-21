@@ -13,7 +13,7 @@ const Home = () => {
 
 
   const handleChange=(e) =>{
-    setId(e.target.value)
+    setId(e.target.value.toLowerCase())
   }
 
   const handleSubmit=(e) =>{
@@ -40,6 +40,7 @@ const Home = () => {
       />
       <button type="submit">Submit</button> 
       </form>
+      
       
      
       

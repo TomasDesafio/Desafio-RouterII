@@ -1,65 +1,49 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import { useMyContext } from '../context/Apicontext';
 
 
-    
-const Personajes = () => {
+
+function Personajes() {
+  const [pokemon, setPokemon] = useState(null);
   const{id}=useParams()
-  //console.log(id)
-  //const [indicadorData, setIndicadorData] = useState(null);
-  //const {fetchData,indicadorData,setIndicadorData} = useMyContext()
-  //fetchData(id)
-  //console.log([indicadorData[1]])
-  const [indicadorData, setIndicadorData] = useState(null)  
-  
-  
-  const fetchData = async () => {
-    if (id !== '') {
+
+  useEffect(() => {
+    const getPokemonInfo = async () => {
       try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-        if (!response.ok) {
-          throw new Error(
-            'No se encontraron datos para el indicador especificado.'
-          );
-        }
         const data = await response.json();
-        setIndicadorData(data);
-        /*const datafiltrada=[data].map((element) => {
-          const {forms,stats,types,sprites}=element;
-            return {
-              forms,
-              stats,
-              types,
-              sprites
-            }
-            });
-        setIndicadorData(datafiltrada);
-        //console.log(datafiltrada[0].forms[0].name) //
-        //datafiltrada[0].forms[0].name  ruta del nombre*/
-
-        
-        
-        
-        
+        setPokemon(data);
       } catch (error) {
-        console.error('Error al obtener datos del indicador:', error.message);
-        setIndicadorData(null);
+        console.error('Error al obtener información del Pokémon:', error);
       }
-    }
-  };
+    };
 
-  fetchData(id)
-  console.log([indicadorData][0])
+    getPokemonInfo();
+  }, [id]);
+  //console.log(pokemon)
 
-  
-  
   return (
-    <div>
-        <h1></h1>
-        
-      
+    <div className="App">
+  
+      {pokemon && (
+        <div>
+          <h2>{pokemon.name}</h2>
+          <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+          <p>{pokemon.stats[0].stat.name}</p>   <p>{pokemon.stats[0].base_stat}</p>
+          <p>{pokemon.stats[1].stat.name}</p>   <p>{pokemon.stats[1].base_stat}</p>
+          <p>{pokemon.stats[2].stat.name}</p>   <p>{pokemon.stats[2].base_stat}</p>
+          <p>{pokemon.stats[3].stat.name}</p>   <p>{pokemon.stats[3].base_stat}</p>
+          <p>{pokemon.stats[4].stat.name}</p>   <p>{pokemon.stats[4].base_stat}</p>
+          <p>{pokemon.stats[5].stat.name}</p>   <p>{pokemon.stats[5].base_stat}</p>
+          <p>{pokemon.types[0].type.name}</p>   
+        </div>
+      )}
     </div>
-  )
+  );
 }
-export default Personajes
+
+export default Personajes;
+
+
+    

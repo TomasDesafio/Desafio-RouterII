@@ -21,13 +21,7 @@ const Navbar = () => {
           Personajes{" "}
         </NavLink>
 
-        <NavLink
-          className={setActiveClass}
-          to="/login"
-        >
-          {" "}
-          Login{" "}
-        </NavLink>
+      
       </nav>
     </div>
   );
